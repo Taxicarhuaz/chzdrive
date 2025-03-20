@@ -103,6 +103,7 @@
             <input type="tel" id="telefono" name="telefono" placeholder="Tu Teléfono" required>
             <input type="date" id="fecha" name="fecha" required>
             <input type="time" id="hora" name="hora" required>
+            <input type="tel" id="referencia" name="referencia" placeholder="Referencia" required>
             <button class="btn" type="submit">Reservar Ahora</button>
         </form>
     </section>
@@ -121,7 +122,8 @@
             let telefono = document.getElementById('telefono').value;
             let fecha = document.getElementById('fecha').value;
             let hora = document.getElementById('hora').value;
-            let mensaje = `Hola, deseo reservar un servicio de taxi.\n\n👤 Nombre: ${nombre}\n📍 Recogida: ${recogida}\n🚖 Destino: ${destino}\n📞 Teléfono: ${telefono}\n📅 Fecha: ${fecha}\n🕒 Hora: ${hora}`;
+            let hora = document.getElementById('referencia').value;
+            let mensaje = `Hola, deseo reservar un servicio de taxi.\n\n👤 Nombre: ${nombre}\n📍 Recogida: ${recogida}\n🚖 Destino: ${destino}\n📞 Teléfono: ${telefono}\n📅 Fecha: ${fecha}\n🕒 Hora: ${hora}\n📍 Hora: ${referencia}`;
             let url = `https://wa.me/+51985185544?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
