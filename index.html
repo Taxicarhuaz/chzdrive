@@ -19,6 +19,7 @@
             font-weight: bold;
             color: #333;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
         }
         section {
             padding: 20px;
@@ -31,7 +32,7 @@
             transition: transform 0.3s ease-in-out;
         }
         section:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
         .btn {
             display: inline-block;
@@ -44,10 +45,11 @@
             margin-top: 15px;
             border: none;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
         }
         .btn:hover {
             background-color: #e6b800;
+            transform: scale(1.1);
         }
         form {
             display: flex;
@@ -62,26 +64,29 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
         input:focus {
             border-color: #ffcc00;
             outline: none;
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
         }
         #chat-widget {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background-color: #ffcc00;
-            padding: 12px 20px;
-            border-radius: 25px;
+            padding: 15px 25px;
+            border-radius: 30px;
             cursor: pointer;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.2s;
         }
         #chat-widget:hover {
             background-color: #e6b800;
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -91,22 +96,34 @@
     </header>
     <section>
         <h2>Reserva tu Taxi</h2>
-        <form action="https://formspree.io/f/meoaeyvb" method="POST">
-            <input type="text" name="nombre" placeholder="Tu Nombre" required>
-            <input type="text" name="recogida" placeholder="Ubicación de Recogida" required>
-            <input type="text" name="destino" placeholder="Ubicación de Destino" required>
-            <input type="tel" name="telefono" placeholder="Tu Teléfono" required>
-            <input type="date" name="fecha" required>
-            <input type="time" name="hora" required>
+        <form onsubmit="sendWhatsApp(event)">
+            <input type="text" id="nombre" name="nombre" placeholder="Tu Nombre" required>
+            <input type="text" id="recogida" name="recogida" placeholder="Ubicación de Recogida" required>
+            <input type="text" id="destino" name="destino" placeholder="Ubicación de Destino" required>
+            <input type="tel" id="telefono" name="telefono" placeholder="Tu Teléfono" required>
+            <input type="date" id="fecha" name="fecha" required>
+            <input type="time" id="hora" name="hora" required>
             <button class="btn" type="submit">Reservar Ahora</button>
         </form>
     </section>
     <div id="chat-widget" onclick="openChat()">
-        ¿Requieres ayuda?
+        Soporte Whatsapp
     </div>
     <script>
         function openChat() {
-            window.open('https://wa.me/921427835', '_blank');
+            window.open('https://wa.me/+51921427835', '_blank');
+        }
+        function sendWhatsApp(event) {
+            event.preventDefault();
+            let nombre = document.getElementById('nombre').value;
+            let recogida = document.getElementById('recogida').value;
+            let destino = document.getElementById('destino').value;
+            let telefono = document.getElementById('telefono').value;
+            let fecha = document.getElementById('fecha').value;
+            let hora = document.getElementById('hora').value;
+            let mensaje = `Hola, deseo reservar un servicio de taxi.\n\n👤 Nombre: ${nombre}\n📍 Recogida: ${recogida}\n🚖 Destino: ${destino}\n📞 Teléfono: ${telefono}\n📅 Fecha: ${fecha}\n🕒 Hora: ${hora}`;
+            let url = `https://wa.me/+51921427835?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
         }
     </script>
 </body>
